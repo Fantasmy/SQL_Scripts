@@ -1,0 +1,10 @@
+-- OBTENER LA CANTIDAD DE PRODUCTOS QUE NO SE VENDIERON EN 2014
+
+SELECT COUNT(c.Id) FROM Products c
+WHERE NOT EXISTS
+(
+SELECT oi.ProductId FROM OrderItems oi
+INNER JOIN Orders o ON o.Id = oi.OrderId
+WHERE oi.ProductId = c.Id AND YEAR(o.OrderDate) = 2014
+)
+
